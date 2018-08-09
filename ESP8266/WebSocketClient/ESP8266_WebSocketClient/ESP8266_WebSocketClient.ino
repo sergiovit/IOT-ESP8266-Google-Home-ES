@@ -12,16 +12,16 @@
 
 
 // @@@@@@@@@@@@@@@ You only need to midify modify wi-fi and domain info @@@@@@@@@@@@@@@@@@@@
-const char* ssid     = "AndroidAP"; //enter your ssid/ wi-fi(case sensitiv) router name - 2.4 Ghz only
-const char* password = "Mitxifu0886";     // enter ssid password (case sensitiv)
-char host[] = "laguardia-1.herokuapp.com"; //enter your Heroku domain name like "espiot.herokuapp.com" 
+const char* ssid     = "enter your ssid name"; //enter your ssid/ wi-fi(case sensitiv) router name - 2.4 Ghz only
+const char* password = "enter ssid password";     // enter ssid password (case sensitiv)
+char host[] = "espiot.herokuapp.com"; //enter your Heroku domain name like "espiot.herokuapp.com" 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 int port = 80;
 char path[] = "/ws"; 
 ESP8266WiFiMulti WiFiMulti;
 WebSocketsClient webSocket;
-const int relayPin = 16;    // Sergio creo que este es el led que se activa con el video
+const int relayPin = 16;
 DynamicJsonBuffer jsonBuffer;
 String currState;
 int pingCount=0;
