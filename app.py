@@ -44,7 +44,7 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
             googleRequest = self.reader._buffer.decode('utf-8')
             googleRequestJson = json.loads(googleRequest)
 
-            #{"location": "living", "state": "on", "device": "lights"}
+            #{"location": "living", "state": "on", "device": "rele1"}
             if 'cómo' in googleRequestJson['result']['resolvedQuery']:
                 ESPparameters = googleRequestJson['result']['parameters']
                 ESPparameters['query'] = '?' # Sergio si query = ?  entramos en comandos para consultar estado de reles
@@ -65,11 +65,21 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
             #Sergio Original {self.rddata = '{"speech": "Sistema '+state+'", "displayText": "Sistema '+state+'"}'
             #Sergio modificaciones realizadas por mi para probar y depurar
             if ESPparameters['query'] == '?' :
-                self.rddata = '{"speech": "Esta en '+state+'", "displayText": "Esta en '+state+'"}'
                 print("Entra en if de consulta estado de reles")
+                if ESPparameters['device'] == 'rele1' :
+                    print("Consulta Rele1 detectado")
+                    self.rddata = '{"speech": "Rele1 esta en '+state+'", "displayText": "Rele1 esta en '+state+'"}'
+                else: 
+                    print("else Rele1 No detectado")
+                    self.rddata = '{"speech": "Esta en '+state+'", "displayText": "Esta en '+state+'"}'
             else: 
-                self.rddata = '{"speech": "Relé '+state+'", "displayText": "Rele '+state+'"}'
                 print("Entra en else de activar o desactivar los reles")
+                if ESPparameters['device'] == 'rele1' :
+                    print("Rele1 detectado")
+                    self.rddata = '{"speech": "Relé 1 '+state+'", "displayText": "Rele 1 '+state+'"}'
+                else: 
+                    print("else Rele1 No detectado")
+                    self.rddata = '{"speech": "Relé '+state+'", "displayText": "Rele '+state+'"}'
             response = '\r\n'.join([
                 'HTTP/1.1 200 OK',
                 'Content-Type: text/json',
