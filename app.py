@@ -45,7 +45,7 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
             googleRequestJson = json.loads(googleRequest)
 
             #{"location": "living", "state": "on", "device": "lights"}
-            if 'como' in googleRequestJson['result']['resolvedQuery']:
+            if 'cómo' in googleRequestJson['result']['resolvedQuery']:
                 ESPparameters = googleRequestJson['result']['parameters']
                 ESPparameters['query'] = '?' # Sergio si query = ?  entramos en comandos para consultar estado de reles
             else:
@@ -68,7 +68,7 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
                 self.rddata = '{"speech": "Esta en '+state+'", "displayText": "Esta en '+state+'"}'
                 print("Entra en if de consulta estado de reles")
             else: 
-                self.rddata = '{"speech": "Rele '+state+'", "displayText": "Rele '+state+'"}'
+                self.rddata = '{"speech": "Relé '+state+'", "displayText": "Rele '+state+'"}'
                 print("Entra en else de activar o desactivar los reles")
             response = '\r\n'.join([
                 'HTTP/1.1 200 OK',
