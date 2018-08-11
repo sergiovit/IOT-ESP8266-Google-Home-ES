@@ -65,20 +65,25 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
             #Sergio Original {self.rddata = '{"speech": "Sistema '+state+'", "displayText": "Sistema '+state+'"}'
             #Sergio modificaciones realizadas por mi para probar y depurar
             if ESPparameters['query'] == '?' :
-                print("Entra en if de consulta estado de reles")
+                #print("Entra en if de consulta estado de reles")
                 if ESPparameters['device'] == 'rele1' :
-                    print("Consulta Rele1 detectado")
-                    self.rddata = '{"speech": "Rele1 esta en '+state+'", "displayText": "Rele1 esta en '+state+'"}'
+                    #print("Consulta Rele1 detectado")
+                    if ESPparameters['location'] == 'salon' :
+                        self.rddata = '{"speech": "El Relé 1 del salón está en '+state+'", "displayText": "Rele1 del salón esta en '+state+'"}'
+                    else: 
+                        self.rddata = '{"speech": "Relé 1 está en '+state+'", "displayText": "Rele1 esta en '+state+'"}'
                 else: 
-                    print("else Rele1 No detectado")
-                    self.rddata = '{"speech": "Esta en '+state+'", "displayText": "Esta en '+state+'"}'
+                    if ESPparameters['device'] == 'rele2' :
+                        self.rddata = '{"speech": "Relé 2 está en '+state+'", "displayText": "Rele1 esta en '+state+'"}'
+                    else:   
+                        self.rddata = '{"speech": "Está en '+state+'", "displayText": "Esta en '+state+'"}'
             else: 
-                print("Entra en else de activar o desactivar los reles")
+                #print("Entra en else de activar o desactivar los reles")
                 if ESPparameters['device'] == 'rele1' :
-                    print("Rele1 detectado")
+                    #print("Rele1 detectado")
                     self.rddata = '{"speech": "Relé 1 '+state+'", "displayText": "Rele 1 '+state+'"}'
                 else: 
-                    print("else Rele1 No detectado")
+                    #print("else Rele1 No detectado")
                     self.rddata = '{"speech": "Relé '+state+'", "displayText": "Rele '+state+'"}'
             response = '\r\n'.join([
                 'HTTP/1.1 200 OK',
